@@ -71,6 +71,7 @@ const modConfig = {
     ],
     [
         ["Pits/tiles_overworld.png", "tiles_overworld.png"], 
+        ["Pits/loot_sign.png", "loot_sign.png"], 
         ["Pits/ball.svg", "ball.svg"], 
     ],
     [

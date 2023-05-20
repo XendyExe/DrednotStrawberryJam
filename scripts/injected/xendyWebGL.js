@@ -47,7 +47,7 @@ const GreenscreenFilterConfig = {
     "Sparrow": 0,
     "Canary": 1,
     "Vulture": 2,
-    "The Pits": 0,
+    "The Pits": 2,
     "Raven": 2
 }
 const GreenScreenFilter = new PIXI.Filter(vertexShader, fragmentShader);
@@ -169,6 +169,7 @@ const backgroundConfig = {
         "PassionFruitPantheon.png",
         "Canary.png",
         "StarfruitSupernova.png",
+        "PitsBG.png"
     ],
     "Freeport I": 0,
     "Hummingbird": 0,
@@ -178,7 +179,7 @@ const backgroundConfig = {
     "Sparrow": 2,
     "Canary": 4,
     "Vulture": 3,
-    "The Pits": 4,
+    "The Pits": 6,
     "Raven": 3
 }
 let backgroundSprites = []
