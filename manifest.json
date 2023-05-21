@@ -16,14 +16,9 @@
     ],
     "content_scripts": [
       {
-        "matches": ["*://*.drednot.io/*"],
-        "js": ["scripts/content-script.js"],
+        "matches": ["*://drednot.io/*"],
+        "js": ["scripts/inject.js"],
         "run_at" : "document_start",
-        "all_frames": true
-      },
-      {
-        "matches": ["*://*.drednot.io/*"],
-        "js": ["scripts/contentLoad.js"],
         "all_frames": true
       }
     ],
