@@ -15,6 +15,8 @@ var pixi = document.createElement("script");
 pixi.src = chrome.runtime.getURL("scripts/libs/pixi.js");
 var pixif = document.createElement("script");
 pixif.src = chrome.runtime.getURL("scripts/libs/pixi-filters.js");
+var pixip = document.createElement("script");
+pixip.src = chrome.runtime.getURL("scripts/libs/pixi-particles.js");
 
 let sfxManager = document.createElement("script");
 sfxManager.src = chrome.runtime.getURL("scripts/injected/sfxManager.js");
@@ -26,6 +28,7 @@ sfxManager.src = chrome.runtime.getURL("scripts/injected/sfxManager.js");
 (document.head || document.documentElement).appendChild(pixi);
 pixi.onload = function() { 
     (document.head || document.documentElement).appendChild(pixif);
+    (document.head || document.documentElement).appendChild(pixip);
 };
 (document.head || document.documentElement).appendChild(msg);
 (document.head || document.documentElement).appendChild(injector);

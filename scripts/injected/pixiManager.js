@@ -2,6 +2,9 @@ const InjectAllGraphicsScripts = () => {
     let backgroundManager = document.createElement("script");
     backgroundManager.src = dsj.url + "scripts/injected/backgroundManager.js";
     (document.head || document.documentElement).appendChild(backgroundManager);
+    let filterManager = document.createElement("script");
+    filterManager.src = dsj.url + "scripts/injected/filterManager.js";
+    (document.head || document.documentElement).appendChild(filterManager);
 }
 
 const StartPIXI = (canvas) => {
