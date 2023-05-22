@@ -22,6 +22,7 @@ const config = {
 }
 
 const Start = () => {
+    return;
     let songs = [];
     
     let volume = 0.5;

@@ -3,6 +3,8 @@ window.dsj = {};
 window.dsj.style = document.createElement("style");
 window.dsj.url = document.getElementById("dsjURL").innerHTML;
 
+window.dsj.blocksBrokenRequests = [];
+
 window.waitForElm = (selector) => {
     return new Promise(resolve => {
         if (document.querySelector(selector)) {

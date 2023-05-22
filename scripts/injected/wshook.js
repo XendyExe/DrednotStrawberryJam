@@ -1,3 +1,5 @@
+let bufferedData = {}
+
 let theWs;
 let WorldID = -1;
 const nativeWebSocket = window.WebSocket;
@@ -37,6 +39,7 @@ window.WebSocket = function(...args) {
             else if (data.type == 12) {
                 if (data.is_overworld && data.name != "" && ! data.removed) {
                     console.log(data);
+                    bufferedData = [];
                     window.postMessage({isDSJ: true, type: "teleport", name: data.name}, window.location.origin);
                 }
                 else if (data.removed === true) {
@@ -45,8 +48,25 @@ window.WebSocket = function(...args) {
                     
                 }
             }
+            else if (data.type == 13) {
+                let position = `${data.x}:${data.y}`
+                if (data.d == 255 && data.m == 0) {
+                    let superData = {}
+                    if (bufferedData[position] == undefined) {
+                        superData.type = 0;
+                    }
+                    else {
+                        superData.type = bufferedData[position];
+                    }
+                    dsj.blocksBrokenRequests.push(superData);
+                }
+                else {
+                    if (data.m != 0) {
+                        bufferedData[position] = data.m;
+                    }
+                }
+            }
             else if(data.type != 9) {
-                //console.log(data);
             }
         })
         window.WebSocket = nativeWebSocket;
