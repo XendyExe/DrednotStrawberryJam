@@ -30,7 +30,15 @@ const StartPIXI = (canvas) => {
     });
     InjectAllGraphicsScripts();
 }
-
+window.convertSpriteToTilingSprite = (sprite) => {
+    const tilingSprite = new PIXI.TilingSprite(sprite.texture, 320, 180);
+    tilingSprite.position.copyFrom(sprite.position);
+    tilingSprite.scale.copyFrom(sprite.scale);
+    tilingSprite.anchor.copyFrom(sprite.anchor);
+    tilingSprite.blendMode = sprite.blendMode;
+    tilingSprite.zIndex = sprite.zIndex;
+    return tilingSprite;
+}
 waitForElm("#canvas-game").then((elm) => {
     StartPIXI(elm);
 })

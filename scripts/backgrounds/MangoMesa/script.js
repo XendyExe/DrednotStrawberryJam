@@ -7,6 +7,7 @@ class MangoMesa extends dsj.backgroundBase {
         foreground.texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST;
         foreground.position.set(-160, -90);
         foreground.zIndex = 10;
+
         const clouds = PIXI.Sprite.from(dsj.url + "scripts/backgrounds/MangoMesa/assets/cloudsloop.png");
         clouds.texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST;
         clouds.position.set(-160, -90);
@@ -15,8 +16,15 @@ class MangoMesa extends dsj.backgroundBase {
         sky.texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST;
         sky.position.set(-160, -90);
         sky.zIndex = -10;
-        this.container.addChild(foreground, clouds, sky);
+
+        const TilingClouds = convertSpriteToTilingSprite(clouds);
+        const TilingSky = convertSpriteToTilingSprite(sky);
+        this.container.addChild(foreground, TilingClouds, TilingSky);
         this.container.sortChildren();
+        TilingClouds.dsjNext = () => {TilingClouds.tilePosition.x += 1; setTimeout(() => TilingClouds.dsjNext(), 333)};
+        TilingSky.dsjNext = () => {TilingSky.tilePosition.x += 1; setTimeout(() => TilingSky.dsjNext(), 666)};
+        TilingClouds.dsjNext();
+        TilingSky.dsjNext();
     }
 }
 

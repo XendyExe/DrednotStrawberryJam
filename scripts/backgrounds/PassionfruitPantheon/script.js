@@ -25,9 +25,19 @@ class PassionfruitPantheon extends dsj.backgroundBase {
         clouds3.texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST;
         clouds3.position.set(-160, -90);
         clouds3.zIndex = -30;
-        this.container.addChild(background, clouds3, clouds2, clouds1, mountains);
+
+        const TilingCloud1 = convertSpriteToTilingSprite(clouds1);
+        const TilingCloud2 = convertSpriteToTilingSprite(clouds2);
+        const TilingCloud3 = convertSpriteToTilingSprite(clouds3);
+        this.container.addChild(background, TilingCloud3, TilingCloud2, TilingCloud1, mountains);
         this.container.sortChildren();
-    }
+        TilingCloud1.dsjNext = () => {TilingCloud1.tilePosition.x += 1; setTimeout(TilingCloud1.dsjNext, 200)}
+        TilingCloud2.dsjNext = () => {TilingCloud2.tilePosition.x += 1; setTimeout(TilingCloud2.dsjNext, 400)}
+        TilingCloud3.dsjNext = () => {TilingCloud3.tilePosition.x += 1; setTimeout(TilingCloud3.dsjNext, 600)}
+        TilingCloud1.dsjNext();
+        TilingCloud2.dsjNext();
+        TilingCloud3.dsjNext();
+    }   
 }
 
 dsj.backgrounds.PassionfruitPantheon = new PassionfruitPantheon();

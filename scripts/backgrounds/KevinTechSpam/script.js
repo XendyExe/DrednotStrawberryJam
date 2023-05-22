@@ -17,8 +17,15 @@ class KevinTechSpam extends dsj.backgroundBase {
         arrows.texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST;
         arrows.position.set(-160, -90);
         arrows.zIndex = 10;
-        this.container.addChild(background, diamonds, arrows);
+
+        const TilingDiamonds = convertSpriteToTilingSprite(diamonds);
+        const TilingArrows = convertSpriteToTilingSprite(arrows);
+        this.container.addChild(background, TilingDiamonds, TilingArrows);
         this.container.sortChildren();
+        TilingDiamonds.dsjNext = () => {TilingDiamonds.tilePosition.x += 1; setTimeout(TilingDiamonds.dsjNext, 50)}
+        TilingArrows.dsjNext = () => {TilingArrows.tilePosition.x += 1; setTimeout(TilingArrows.dsjNext, 25)}
+        TilingDiamonds.dsjNext();
+        TilingArrows.dsjNext();
     }
 }
 
