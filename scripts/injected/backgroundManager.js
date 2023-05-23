@@ -147,9 +147,7 @@ const StartBackgrounds = () => {
     window.addEventListener("message", (data) => {
         if (data.data.isDSJ !== undefined && data.data.type == "teleport") {
             backgroundContainer.removeChildren();
-            console.log(BackgroundConfig.bgs)
-            console.log(BackgroundConfig[data.data.name]);
-            console.log(BackgroundConfig.bgs[BackgroundConfig[data.data.name]]);
+            console.log(BackgroundConfig.bgs);
             backgroundContainer.addChild(BackgroundConfig.bgs[BackgroundConfig[data.data.name]].container);
             ChromaKeyFilter.uniforms.chromaColor = ChromaKeyConfig.colors[ChromaKeyConfig[data.data.name]];
         }

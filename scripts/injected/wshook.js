@@ -27,6 +27,7 @@ window.WebSocket = function(...args) {
                 }
             };
             theWs.addEventListener("close", () => {
+                window.dsj.graphics.firstJoin = false;
                 window.postMessage({isDSJ: true, type: "disconnected"}, window.location.origin);
             });
         });

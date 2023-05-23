@@ -34,8 +34,12 @@ pixiManager.src = dsj.url + "scripts/injected/pixiManager.js";
 let textureManager = document.createElement("script");
 textureManager.src = dsj.url + "scripts/injected/textureManager.js";
 
+let menuManager = document.createElement("script");
+menuManager.src = dsj.url + "scripts/injected/menuManager.js";
+
 // injection
 (document.head || document.documentElement).appendChild(window.dsj.style);
 (document.head || document.documentElement).appendChild(musicManager);
 (document.head || document.documentElement).appendChild(pixiManager);
 (document.head || document.documentElement).appendChild(textureManager);
+(document.head || document.documentElement).appendChild(menuManager);

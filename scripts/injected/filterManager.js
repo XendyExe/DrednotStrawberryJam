@@ -44,8 +44,8 @@ PitsBloomFilter.blur = 8;
 
 // Passionfruit
 const PassionfruitBloomFilter = new PIXI.filters.AdvancedBloomFilter();
-PassionfruitBloomFilter.threshold = 0.75;
-PassionfruitBloomFilter.blur = 13;
+PassionfruitBloomFilter.threshold = 0.8;
+PassionfruitBloomFilter.blur = 10;
 PassionfruitBloomFilter.quality = 20;
 PassionfruitBloomFilter.bloomScale = 0.5;
 
@@ -101,17 +101,27 @@ const filterConfig = {
 for (let i = 1; i <= 12; i++) {
     TransitionSFX.push(new Audio(dsj.url + `audio/glitches/medium_main_${(("" + i).length == 1 ? "0": "") + i}.wav`));
 }
+window.dsj.graphics.firstJoin = true;
 window.addEventListener("message", (data) => {
     if (data.data.isDSJ !== undefined && data.data.type == "teleport") {
         let zone = data.data.name;
-        dsj.graphics.Game.filters = filterConfig.filters[filterConfig["Transition"]]
-        let audio = TransitionSFX[Math.floor(Math.random()*TransitionSFX.length)];
-        audio.volume = JSON.parse(localStorage.getItem("dredark_user_settings")).volume * 0.2;
-        audio.play();
-        setTimeout(() => {
-            console.log("Changing filters for one " + zone + " which has the filters: ",filterConfig.filters[filterConfig[zone]] )
+        if (window.dsj.graphics.firstJoin) {
             dsj.graphics.Game.filters = filterConfig.filters[filterConfig[zone]]
-        }, 300)
+            window.dsj.graphics.firstJoin = false;
+        }
+        else {
+            dsj.graphics.Game.filters = filterConfig.filters[filterConfig["Transition"]]
+            let audio = TransitionSFX[Math.floor(Math.random()*TransitionSFX.length)];
+            audio.volume = JSON.parse(localStorage.getItem("dredark_user_settings")).volume * 0.2;
+            audio.play();
+            setTimeout(() => {
+                dsj.graphics.Game.filters = filterConfig.filters[filterConfig[zone]]
+            }, 300)
+        }
     }
 
 });
+
+PIXI.Ticker.shared.add((delta) => {
+    TransitionGlitchFilter.refresh();
+})

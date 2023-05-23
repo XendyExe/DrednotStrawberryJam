@@ -42,14 +42,12 @@ const Start = () => {
 
     window.addEventListener("message", (data) => {
         if (data.data.isDSJ !== undefined && data.data.type == "teleport") {
-            console.log(data.data.name);
             targetSong = config[data.data.name]
         }
     });
 
     const Update = () => {
         if (currentSong != targetSong) {
-            console.log("SONG DIFF");
             if (currentSong == -1) {
                 currentSong = targetSong;
                 songs[currentSong].play();
@@ -87,6 +85,5 @@ const Start = () => {
 
         setTimeout(Update, 10);
     }
-    console.log("Starting update");
     setTimeout(Update, 10);
 };

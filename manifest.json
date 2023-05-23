@@ -10,7 +10,8 @@
         "resources": [
           "scripts/*",
           "audio/*",
-          "mods/*"
+          "mods/*",
+          "images/*"
         ]
       }
     ],

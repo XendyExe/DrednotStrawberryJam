@@ -10,7 +10,6 @@ class Background {
 
     }
     resize() {
-        console.log("Reizing!")
         const scaleX = dsj.pixi.resizeTo.width / 320;
         const scaleY = dsj.pixi.resizeTo.height / 180;
         this.container.position.set(dsj.pixi.resizeTo.width/2, dsj.pixi.resizeTo.height/2);
