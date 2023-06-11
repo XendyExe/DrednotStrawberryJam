@@ -20,7 +20,7 @@ const sfxConfig = {
     // FfailFire
     "/x/1f32bf5aa606a41d999ae6b352867a59.webm": url + "audio/sfx/failfire.webm",
     // longwrench
-    "/x/3771001f1f2092866744036cf8f02eab.webm": url + "audio/sfx/longwrench.webm"
+    "/x/3771001f1f2092866744036cf8f02eab.webm": url + "audio/sfx/longwrench.webm",
 }
 
 const nativeFetch = fetch;

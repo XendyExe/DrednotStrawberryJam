@@ -24,16 +24,17 @@ const config = {
 const Start = () => {
     let songs = [];
     
-    let volume = 0.5;
+    let volume = 0.1;
     let focusVolume = 1;
 
     config.paths.forEach(path => {
         let song = new Audio(dsj.url + path);
         song.loop = true;
-        song.fadeVolume = 1;
+        song.fadeVolume = 0;
         song.calculateVolume = () => {
             return song.fadeVolume * volume * focusVolume;
         }
+        song.volume = song.calculateVolume();
         songs.push(song)
     });
 
@@ -42,7 +43,7 @@ const Start = () => {
 
     window.addEventListener("message", (data) => {
         if (data.data.isDSJ !== undefined && data.data.type == "teleport") {
-            targetSong = config[data.data.name]
+            targetSong = config[data.data.name];
         }
     });
 
@@ -76,9 +77,14 @@ const Start = () => {
 
         if (currentSong != -1) {
             if (document.hasFocus()) {
-                
+                focusVolume += 0.03;
+                if (focusVolume > 1) focusVolume = 1;
+                songs[currentSong].volume = songs[currentSong].calculateVolume();
             }
             else {
+                focusVolume -= 0.03;
+                if (focusVolume < 0) focusVolume = 0;
+                songs[currentSong].volume = songs[currentSong].calculateVolume();
 
             }
         }

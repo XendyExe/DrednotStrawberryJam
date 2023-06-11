@@ -42,4 +42,4 @@ menuManager.src = dsj.url + "scripts/injected/menuManager.js";
 (document.head || document.documentElement).appendChild(musicManager);
 (document.head || document.documentElement).appendChild(pixiManager);
 (document.head || document.documentElement).appendChild(textureManager);
-(document.head || document.documentElement).appendChild(menuManager);
+// (document.head || document.documentElement).appendChild(menuManager);

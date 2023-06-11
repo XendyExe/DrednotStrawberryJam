@@ -1,0 +1,133 @@
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend&display=swap">
+<style>
+    #dsjShipyard {
+        font-family: 'Lexend', sans-serif;
+        overflow:hidden;
+        pointer-events: all !important;
+    }
+
+    .dsjRightMenu {
+        left:50%;
+        width: 40%;
+        height: 600px;
+        background-color: rgb(255, 255, 255);
+        float: right;
+        position:relative;
+        margin-right: 0%;
+        margin-top: 2%;
+        border-width: 2px;
+        border-color:black;
+        border-style: solid;
+        border-radius: 5px;
+        transition: left 0.5s ease-out;
+        overflow-y: hidden;
+    }
+
+    .dsjMenuTitle {
+        position: relative;
+        display:flexbox;
+        padding-right:10px;
+        margin-left:-10px;
+        margin-bottom: 10%;
+        overflow-x: visible;
+        overflow:visible;
+        width: 100%;
+        height:64px;
+        margin-top: 5%;
+        background-color: rgb(255, 217, 102);
+        text-align: right;
+        align-content: center;
+    }
+    .start {
+        position: absolute;
+        width:98%;
+        height:20%;
+        align-content: center;
+        background-color: rgb(190, 190, 190);
+        border-color: gray;
+        border-style:dashed;
+        border-width: 3px;
+        border-right: 0px;
+        border-left: 0px;
+        border-bottom: 0px;
+        bottom: 0;
+        padding-right: 10px;
+        overflow:hidden;
+        text-align: center;
+    }
+    
+    #dsjUsername {
+        background-color: rgb(170, 71, 71);
+        border-radius: 5px;
+        padding: 2px;
+    }
+
+    .content {
+        text-align: center;  
+        height:100%;
+        margin-top: -20px;
+        transition: height 0.25s ease-out;
+        overflow-y:hidden;
+    }
+
+    .serverSelectionIcons{
+        text-align: center;
+        height: 15%;
+    }
+
+    #superDSJshipyard{
+        opacity: 0;
+        transition: opacity 0.5s;
+        pointer-events: none;
+        position:fixed;
+        width: 50%;
+        height:80%;
+        overflow-y:scroll;
+        overflow-x:hidden;
+    }
+    #superDSJshipyard::-webkit-scrollbar {
+        display: none;
+    }
+</style>
+<div class="serverSelectionIcons">
+    <img id="USh" height="100%" style="margin:2%; margin-top: 0;">
+    <img id="EUh" height="100%" style="margin:2%; margin-top: 0;">
+    <img id="ASh" height="100%" style="margin:2%; margin-top: 0;">
+</div>
+<div id="superDSJshipyard">
+</div>
+
+
+<div class="dsjRightMenu" id="rightMenu">
+    <div class="dsjMenuTitle">
+        <h1 style="align-self: center; margin-right: 10%; margin-bottom: 100%;"><span id="dsjServerName">US East</span> <img id="dsjServerIcon" src="grandmaster.png" style="align-self: center;" height="64px"></h1>
+    </div>
+    <div class="content" id="serverData">
+        <section style="margin-top: 0;">
+            <h1> Account </h1>
+            <p>You are <span id="dsjUsername">Xendy</span></p>
+            <button>manage</button>
+            <button>logout</button>
+        </section>
+        <p>Playercount</p>
+        <input>
+        <br/>
+        <button>all</button>
+        <button>saved</button>
+        <button>owned</button>
+        <button>favorated</button>
+    </div>
+    <div class="content" id="shipData">
+        <section style="margin-top:0;">
+            <h1 id="sidebarShipName" style="margin-top:0;">Ship name <span style="font-size:50%;">{HEXCODE}</span></h1>
+            <p id="siidebarCrewCount" style="margin-top:-1%;">Crew: 0</p>
+            <img id="sidebarIcon" height="200px" src="" style="margin-top:0;">
+            <p style="margin-top:0;">Some other data here</p>
+        </section>
+    </div>
+    <div class="start">
+        <h1 style="align-self: center;">Select a ship!</h1>
+    </div>
+</div>
+<div>body</div>
