@@ -1,4 +1,4 @@
-let bufferedData = {}
+let worldData = {}
 let hexa = {
     "0": 0,
     "1": 1,
@@ -19,10 +19,18 @@ let hexa = {
 }
 
 let hexArrayToFloat32 = (hexArray, endianness) => new DataView(new Uint8Array(hexArray.map(hex => Number(`0x${hex}`))).buffer).getFloat32(0, endianness) 
-
+const superamazingurl = document.getElementById('dsjURL').innerHTML;
+const audioPaths = { 
+    1: superamazingurl + "audio/variablesfx/iron.webm",  // normal
+    9: superamazingurl + "audio/variablesfx/dirtBreak.wav",  // Dirt
+    10: superamazingurl + "audio/variablesfx/dirtBreak.wav", // DirtIron
+    11: superamazingurl + "audio/variablesfx/dirtBreak.wav", // DirtFlux
+}
+let context = new AudioContext();
 let theWs;
 let WorldID = -1;
-const nativeWebSocket = window.WebSocket;
+window.overworld;
+window.nativeWebSocket = window.WebSocket;
 window.WebSocket = function(...args) {
     let ws = new nativeWebSocket(...args);
     if (!ws.url.includes(":4000")) {
@@ -50,8 +58,7 @@ window.WebSocket = function(...args) {
                 window.dsj.graphics.firstJoin = false;
                 window.postMessage({isDSJ: true, type: "disconnected"}, window.location.origin);
             });
-        });
-        ws.addEventListener("message", (event) => {
+             ws.addEventListener("message", (event) => {
             let data = msgpack.decode(event.data);
             if (data.type == 16) {
                 WorldID = data.world;
@@ -90,6 +97,105 @@ window.WebSocket = function(...args) {
             else if(data.type != 9) {
             }
         })
+        });
+        ws.addEventListener("message", (event) => {
+            let data = msgpack.decode(event.data);
+            if (data.type == 16) {
+                WorldID = data.world;
+                console.log("WORLD ID: " + WorldID);
+            }
+            else if (data.type == 12) {
+                if (data.is_overworld && data.name != "" && ! data.removed) {
+                    bufferedData = [];
+                    window.postMessage({isDSJ: true, type: "teleport", name: data.name}, window.location.origin);
+                    console.log("Requiring new map data");
+                    
+                    console.log("Length of worldlist is: " + Object.keys(internals[20].input.repsocket.manager.worlds).length)
+                    let worldlistGetter = () => {
+                        if (internals[20].input.repsocket.manager.worlds[data.world] === undefined) {
+                            setTimeout(worldlistGetter, 10);
+                        }
+                        else if (internals[20].input.repsocket.manager.worlds[data.world].map.get_material(0, 0) == 0) {
+                            setTimeout(worldlistGetter, 10);
+                        }
+                        else {
+                            world = internals[20].input.repsocket.manager.worlds[data.world]
+                            const width = world.block_w;
+                            const height = world.block_h;
+                            for (let x = 0; x < width; x++) {
+                                for (let y = 0; y < height; y++) {
+                                    worldData[`${x}|${y}`] = world.map.get_material(x, y);
+                                }
+                            }
+                            console.log("Collected materials");
+                        }
+                    }
+                    worldlistGetter();
+                    overworld = data.world;
+                }
+                else if (data.removed === true) {
+                }
+                else {
+                    
+                }
+            }
+            else if (data.type == 13) {
+                if (data.world < 10 && data.m == 0) {
+                    const dd = 60;
+                    let m = worldData[`${data.x}|${data.y}`]
+                    let world = internals[20].input.repsocket.manager.worlds[overworld]
+                    let ent = internals[20].input.repsocket.manager.worlds[WorldID].parent_ent_id
+                    let yx = (data.x * 8)- world.entityComponents.ship_get_x(ent, world.snapProgress);
+                    let yy = (data.y * 8)-world.entityComponents.ship_get_y(ent, world.snapProgress);
+                    let dist = Math.sqrt(Math.abs(yx) + Math.abs(yy))
+                    let vol = dd - dist < 0 ? 0 : dd - dist; vol = vol/dd;
+                    vol = Math.pow(vol, 6) / 2.5;
+                    let pan = yx/dd;
+                    pan = (pan < -1) ? -1 : (pan > 1) ? 1 : pan;
+                    let inversePan = (pan < 0 ? -1 : 1)  - pan;
+                    let pancalc = Math.pow(Math.abs(inversePan), 2);
+                    let superinversepan = (pancalc < 0 ? -1 : 1) - pancalc;
+                    let finalcalcpan = (Math.abs(Math.abs(pan) == 1 ? pan : superinversepan)) * (pan > 0 ? 1 : -1)
+
+                    let panner = new StereoPannerNode(context, {pan:finalcalcpan});
+                    let a = new Audio(audioPaths[m]);
+                    a.volume = vol;
+                    const track = context.createMediaElementSource(a);
+                    track.connect(panner).connect(context.destination);
+                    if (context.state === "suspended") {
+                        context.resume();
+                    }
+                    a.play();
+                    console.log(a.volume);
+                    /*
+                                        let e = `
+Material: ${m}
+XDiff: ${yx}
+Distence: ${dist}
+YourWorld: ${WorldID}
+
+Volume: ${vol}
+Pan = ${pan}
+Inverse Pan = ${inversePan}
+BestPan = ${pancalc}
+superInversePan = ${superinversepan}
+preMultiply = ${Math.abs(Math.abs(pan) == 1 ? pan : superinversepan)}
+Pangreaterone = ${pan > 1}
+FinalCalc = ${finalcalcpan}
+                    `
+                    console.log(e);s
+                    */
+                }
+                else if (data.world < 10 && data.d > 0) {
+                    worldData[`${data.x}|${data.y}`] = data.m;
+                }
+            }
+            else if(data.type != 9) {
+            }
+            else if (data.type == 9) {
+            }
+        })
+       
         window.WebSocket = nativeWebSocket;
     }
     return ws;

@@ -24,7 +24,7 @@ const config = {
 const Start = () => {
     let songs = [];
     
-    let volume = 0.1;
+    let volume = 0;
     let focusVolume = 1;
 
     config.paths.forEach(path => {

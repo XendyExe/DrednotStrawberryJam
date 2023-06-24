@@ -51,7 +51,7 @@ fetch(url + 'audio/variablesfx/dirtBreak.wav')
     // Handle any errors that occurred during loading or decoding
     console.error(error);
   });
-/*
+  
 const OriginalAudioContext = window.AudioContext || window.webkitAudioContext;
 
 window.AudioContext = function () {
@@ -65,25 +65,7 @@ window.AudioContext = function () {
     bufferSourceNode.start = function (over = true) {
         if (over) {
             if (bufferSourceNode.buffer.duration == 1.43475) {
-                if (dsj.blocksBrokenRequests != 0) {
-                    let blockType = dsj.blocksBrokenRequests[0].type;
-                    console.log("Block type " + dsj.blocksBrokenRequests[0].type + " broken!", bufferSourceNode);
-                    dsj.blocksBrokenRequests.shift();
-
-                    // hey its the sfx already loaded
-                    if (blockType == 1) {
-                        return;
-                    }
-
-                    // alright FUCKING HELL we got to like gen
-                    if (blockType == 9 || blockType == 10) {
-                        console.log("OVERRIDING THE FUCKING STUPID SHIT")
-                        bufferSourceNode.buffer = audio.dirtBreak;
-                        bufferSourceNode.start(false);
-                    }
-                    return;
-                }
-
+                return;
             }
         }
         originalStart.apply(this, arguments); 
@@ -92,4 +74,3 @@ window.AudioContext = function () {
   };
   return audioContext;
 };
-*/

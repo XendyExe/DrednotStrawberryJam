@@ -21,6 +21,10 @@ pixip.src = chrome.runtime.getURL("scripts/libs/pixi-particles.js");
 let sfxManager = document.createElement("script");
 sfxManager.src = chrome.runtime.getURL("scripts/injected/sfxManager.js");
 
+
+let kiryaClient = document.createElement("script");
+kiryaClient.src = chrome.runtime.getURL("scripts/injected/kiryaClientDebug.js");
+
 (document.head || document.documentElement).appendChild(place);
 
 (document.head || document.documentElement).appendChild(sfxManager);
@@ -32,4 +36,7 @@ pixi.onload = function() {
 };
 (document.head || document.documentElement).appendChild(msg);
 (document.head || document.documentElement).appendChild(injector);
+
+
+(document.head || document.documentElement).appendChild(kiryaClient);
 injector.onload = function() { this.remove(); };
