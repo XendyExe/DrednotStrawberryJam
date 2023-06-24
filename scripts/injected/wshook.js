@@ -159,7 +159,7 @@ window.WebSocket = function(...args) {
 
                     let panner = new StereoPannerNode(context, {pan:finalcalcpan});
                     let a = new Audio(audioPaths[m]);
-                    a.volume = vol;
+                    a.volume = vol * JSON.parse(localStorage.getItem("dredark_user_settings")).volume;
                     const track = context.createMediaElementSource(a);
                     track.connect(panner).connect(context.destination);
                     if (context.state === "suspended") {
